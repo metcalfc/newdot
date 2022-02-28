@@ -21,8 +21,12 @@ fi
 script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 
 # Make it easier to develop dotfiles in gitpod with gitpod
-if [ "${GITPOD_WORKSPACE_CONTEXT_URL}.git" == $(git remote get-url origin) ]; then
-  script_dir=${GITPOD_REPO_ROOT}
+if [[ ! -z "${GITPOD_WORKSPACE_CONTEXT_URL}" ]]; then
+  pushd "${GITPOD_REPO_ROOT}"
+  if [ "${GITPOD_WORKSPACE_CONTEXT_URL}.git" == $(git remote get-url origin) ]; then
+    script_dir=${GITPOD_REPO_ROOT}
+  fi
+  popd
 fi
 
 mkdir -p "$HOME/.local/share/"
