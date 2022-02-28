@@ -1,6 +1,7 @@
 {{- $gitpod:= env "GITPOD_GIT_USER_NAME" | not | not -}}
 {{- $name:= env "GITPOD_GIT_USER_NAME" -}}
 {{- $email:= env "GITPOD_GIT_USER_EMAIL" -}}
+
 {{- $interactive:= stdinIsATTY -}}
 
 {{- if hasKey . "name" -}}
@@ -22,6 +23,7 @@
 sourceDir: "{{ .chezmoi.sourceDir }}"
 
 data:
-  name: "{{ $name | quote}}"
-  email: "{{ $email | quote}}"
-  gitpod: "{{ $gitpod }}"
+  name: {{ $name | quote }}
+  email: {{ $email | quote }}
+  gitpod: {{ $gitpod }}
+  interactive: {{ $interactive }}
