@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e # -e: exit on error
 
@@ -21,12 +21,12 @@ fi
 script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 
 # Make it easier to develop dotfiles in gitpod with gitpod
-if [[ ! -z "${GITPOD_WORKSPACE_CONTEXT_URL}" ]]; then
-  pushd "${GITPOD_REPO_ROOT}"
+if [ -d "${GITPOD_REPO_ROOT}" ]; then
+  pushd "${GITPOD_REPO_ROOT}" > /dev/null
   if [ "${GITPOD_WORKSPACE_CONTEXT_URL}.git" == $(git remote get-url origin) ]; then
     script_dir=${GITPOD_REPO_ROOT}
   fi
-  popd
+  popd > /dev/null
 fi
 
 mkdir -p "$HOME/.local/share/"
