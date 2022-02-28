@@ -20,6 +20,11 @@ fi
 # POSIX way to get script's dir: https://stackoverflow.com/a/29834779/12156188
 script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 
+# Make it easier to develop dotfiles in gitpod with gitpod
+if [ "${GITPOD_WORKSPACE_CONTEXT_URL}.git" == $(git remote get-url origin) ]; then
+  script_dir=${GITPOD_REPO_ROOT}
+fi
+
 mkdir -p "$HOME/.local/share/"
 ln -s "$script_dir" "$HOME/.local/share/chezmoi"
 
