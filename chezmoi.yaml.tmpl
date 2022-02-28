@@ -1,0 +1,21 @@
+{{- $gitpod:= env "GITPOD_GIT_USER_NAME" | not | not -}}
+
+{{- /* Initializes the name variable with a default value */ -}}
+{{- $name := "Chad Metcalf" -}}
+{{- /* If name was previously set, reuses it */ -}}
+{{- if hasKey . "name" -}}
+{{-   $name = .name -}}
+{{- end -}}
+
+{{- /* Does the same for the email */ -}}
+{{- $email := "metcalfc@gmail.com" -}}
+{{- if hasKey . "email" -}}
+{{-   $email = .email -}}
+{{- end -}}
+
+sourceDir: "{{ .chezmoi.sourceDir }}"
+
+data:
+  name: "{{ $name }}"
+  email: "{{ $email }}"
+  gitpod: "{{ $gitpod }}"
